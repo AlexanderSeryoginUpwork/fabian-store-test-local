@@ -21,4 +21,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::middleware(['auth'])->group(function (){
+    Route::prefix('dashboard')->group(function (){
+        Route::get('stores', [\App\Http\Controllers\Store\StoreController::class, 'getAll']);
+        Route::get('orders', [\App\Http\Controllers\Order\OrderController::class, 'getAll']);
+    });
+});
+
 require __DIR__.'/auth.php';
