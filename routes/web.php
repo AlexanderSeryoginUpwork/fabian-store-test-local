@@ -13,19 +13,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('index');
 
+Route::get('/dashboard', [\App\Http\Controllers\IndexController::class, 'dashboard'])
+    ->middleware(['auth'])
+    ->name('dashboard');
+
+/*
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');*/
 
 Route::middleware(['auth'])->group(function (){
     Route::prefix('dashboard')->group(function (){
-        Route::get('stores', [\App\Http\Controllers\Store\StoreController::class, 'getAll']);
-        Route::get('orders', [\App\Http\Controllers\Order\OrderController::class, 'getAll']);
+
+        Route::get('datatables.data', [\App\Http\Controllers\DatatablesController::class, 'anyData'])->name('datatables.data');
+        Route::get('datatables', [\App\Http\Controllers\DatatablesController::class, 'getIndex'])->name('datatables');
+
+        Route::get('stores.data', [\App\Http\Controllers\Store\StoreController::class, 'anyData'])->name('datatables.store.data');
+        Route::get('stores', [\App\Http\Controllers\Store\StoreController::class, 'getIndex'])->name('stores.getIndex');
+
+        Route::get('orders.data', [\App\Http\Controllers\Order\OrderController::class, 'anyData'])->name('datatables.order.data');
+        Route::get('orders', [\App\Http\Controllers\Order\OrderController::class, 'getIndex'])->name('orders.getIndex');
     });
 });
+
+/*Route::resource('datatables', 'DataTables\DatatablesController', [
+    'anyData'  => 'datatables.data',
+    'getIndex' => 'datatables',
+]);*/
+
+
 
 require __DIR__.'/auth.php';

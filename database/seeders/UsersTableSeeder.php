@@ -14,6 +14,20 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
+        User::create([
+           'name' => 'admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('123456')
+        ]);
+        User::create([
+            'name' => 'user1',
+            'email' => 'user1@example.com',
+            'password' => bcrypt('123456')
+        ]);
+        User::create([
+            'name' => 'user2',
+            'email' => 'user2@example.com',
+            'password' => bcrypt('123456')
+        ]);
     }
 }

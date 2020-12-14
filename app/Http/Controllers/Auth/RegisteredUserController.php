@@ -9,6 +9,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -32,17 +34,32 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|confirmed|min:8',
+            'password' => 'required|string|confirmed|min:3',
         ]);
 
-        Auth::login($user = User::create([
+
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]));
+        ]);
+
+
+        Role::create(['name' => 'user']);
+        Permission::create(['name' => 'create own order']);
+        Permission::create(['name' => 'read own order']);
+        Permission::create(['name' => 'delete own order']);
+
+        $user->givePermissionTo('create own order');
+        $user->givePermissionTo('read own order');
+        $user->givePermissionTo('delete own order');
+        $user->assignRole('user');
+
+        Auth::login($user);
 
         event(new Registered($user));
 
