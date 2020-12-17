@@ -10,6 +10,11 @@ class StoreRepository
 {
     public function getAll()
     {
-        return Store::all();
+        return Store::with('status')->get();
+    }
+
+    public function create(array $data): Store
+    {
+        return Store::create($data);
     }
 }

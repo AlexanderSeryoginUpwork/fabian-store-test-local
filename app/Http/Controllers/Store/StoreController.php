@@ -49,4 +49,15 @@ class StoreController extends Controller
     {
         return Datatables::of(Store::query())->make(true);
     }
+
+    public function create(Request $request)
+    {
+//        $statuses =
+        return view('store.create');
+    }
+
+    public function createAction(Request $request)
+    {
+        return $this->service->create($request->all());
+    }
 }

@@ -20,4 +20,9 @@ class OrderService
     {
         return $this->orderRepository->getAll();
     }
+
+    public function create(array $data)
+    {
+
+    }
 }

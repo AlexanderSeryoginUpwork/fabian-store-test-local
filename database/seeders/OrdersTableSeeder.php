@@ -15,6 +15,23 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-        Order::factory(3)->create();
+        Order::create([
+            'store_id' => 1,
+            'user_id' => 1,
+            'status' => 1,
+            'additional_info' => 'I live in Ukraine, Kiev, Street #1 / 123'
+        ]);
+        Order::create([
+            'store_id' => 2,
+            'user_id' => 2,
+            'status' => 2,
+            'additional_info' => 'I live in USA, New York, Street #2 / 321'
+        ]);
+        Order::create([
+            'store_id' => 3,
+            'user_id' => 1,
+            'status' => 3,
+            'additional_info' => 'I live in Australia, Sidney, Street #3 / 1024'
+        ]);
     }
 }

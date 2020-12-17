@@ -10,6 +10,6 @@ class OrderRepository
 {
     public function getAll()
     {
-        return Order::all();
+        return Order::with('status')->get();
     }
 }

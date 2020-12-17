@@ -14,6 +14,20 @@ class StoresTableSeeder extends Seeder
      */
     public function run()
     {
-        Store::factory(3)->create();
+        Store::create([
+            'name' => 'Store #1',
+            'additional_info' => 'Additional info about Store #1',
+            'status' => 1
+        ]);
+        Store::create([
+            'name' => 'Store #2',
+            'additional_info' => 'Additional info about Store #2',
+            'status' => 2
+        ]);
+        Store::create([
+            'name' => 'Store #3',
+            'additional_info' => 'Additional info about Store #3',
+            'status' => 1
+        ]);
     }
 }

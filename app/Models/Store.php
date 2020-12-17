@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Store extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['token'];
+
+    public function status()
+    {
+        return $this->hasMany(Status::class, 'id', 'id');
+    }
 }

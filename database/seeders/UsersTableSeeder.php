@@ -18,16 +18,18 @@ class UsersTableSeeder extends Seeder
            'name' => 'admin',
             'email' => 'admin@example.com',
             'password' => bcrypt('123456')
-        ]);
+        ])->givePermissionTo('manage as admin');
+        ;
         User::create([
-            'name' => 'user1',
-            'email' => 'user1@example.com',
+            'name' => 'user',
+            'email' => 'user@example.com',
             'password' => bcrypt('123456')
-        ]);
+        ])->givePermissionTo('manage as user');
+
         User::create([
-            'name' => 'user2',
-            'email' => 'user2@example.com',
+            'name' => 'guest',
+            'email' => 'guest@example.com',
             'password' => bcrypt('123456')
-        ]);
+        ])->givePermissionTo('manage as guest');
     }
 }
